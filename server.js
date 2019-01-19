@@ -19,17 +19,21 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 //connect to Mongo using mongoose
-mongoose
-  .connect(
-    "mongodb://localhost/scrapperDB",
-    { useNewUrlParser: true }
-  )
-  .then(result => {
-    console.log("Connected to MongoDB");
-  })
-  .catch(err => {
-    console.log(err);
-  });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapperDB";
+
+mongoose.connect(MONGODB_URI);
+
+// mongoose
+//   .connect(
+//     "mongodb://localhost/scrapperDB",
+//     { useNewUrlParser: true }
+//   )
+//   .then(result => {
+//     console.log("Connected to MongoDB");
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
 
 app.get("/scrape", (req, res) => {
   axios.get("https://www.dailywire.com/").then(response => {
