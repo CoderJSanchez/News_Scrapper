@@ -21,7 +21,14 @@ app.set("view engine", "handlebars");
 //connect to Mongo using mongoose
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapperDB";
 
-mongoose.connect(MONGODB_URI);
+mongoose
+  .connect(MONGODB_URI)
+  .then(result => {
+    console.log("Connected to database");
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 // mongoose
 //   .connect(
